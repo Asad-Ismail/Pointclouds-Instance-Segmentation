@@ -1,0 +1,7 @@
+*.ply
+*.pcd
+*.txt
+*.zip
+*.zlib
+*.swp
+*.vscode/

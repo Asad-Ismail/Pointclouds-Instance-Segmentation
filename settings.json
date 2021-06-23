@@ -1,0 +1,14 @@
+{
+  "configuration": {
+    "images-folder": "",
+    "internal-folder": ""
+  },
+  "sets-of-classes": [
+    {
+      "name": "Cityscapes", "objects": [
+      {"label": "VOID", "color": "#CFCFCF"}
+    ]
+    }
+  ]
+}
+
