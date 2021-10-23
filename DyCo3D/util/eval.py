@@ -5,9 +5,10 @@ import util.utils_3d as util_3d
 import util.utils as util
 
 # ---------- Label info ---------- #
-CLASS_LABELS = ['cabinet', 'bed', 'chair', 'sofa', 'table', 'door', 'window', 'bookshelf', 'picture', 'counter', 'desk', 'curtain', 'refrigerator', 'shower curtain', 'toilet', 'sink', 'bathtub', 'otherfurniture']
-VALID_CLASS_IDS = np.array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 28, 33, 34, 36, 39])
-VALID_CLASS_IDS = np.array([1, 2])
+#CLASS_LABELS = ['cabinet', 'bed', 'chair', 'sofa', 'table', 'door', 'window', 'bookshelf', 'picture', 'counter', 'desk', 'curtain', 'refrigerator', 'shower curtain', 'toilet', 'sink', 'bathtub', 'otherfurniture']
+#VALID_CLASS_IDS = np.array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 28, 33, 34, 36, 39])
+CLASS_LABELS = ['Plant']
+VALID_CLASS_IDS = np.array([2])
 
 ID_TO_LABEL = {}
 LABEL_TO_ID = {}
@@ -18,7 +19,7 @@ for i in range(len(VALID_CLASS_IDS)):
 # overlaps for evaluation
 OVERLAPS             = np.append(np.arange(0.5,0.95,0.05), 0.25)
 # minimum region size for evaluation [verts]
-MIN_REGION_SIZES     = np.array( [ 100 ] )
+MIN_REGION_SIZES     = np.array( [ 10 ] )
 # distance thresholds [m]
 DISTANCE_THRESHES    = np.array( [  float('inf') ] )
 # distance confidences

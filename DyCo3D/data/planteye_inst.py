@@ -97,8 +97,8 @@ class Dataset:
         data_args['batch_size'] = cfg.batch_size
         data_loader = DataLoader(**data_args)
         self.val_data_loader = data_loader
-        # self.val_data_loader = DataLoader(val_set, batch_size=self.batch_size, collate_fn=self.valMerge, num_workers=self.val_workers,
-        #                                   shuffle=False, drop_last=False, pin_memory=True)
+        self.val_data_loader = DataLoader(val_set, batch_size=self.batch_size, collate_fn=self.valMerge, num_workers=self.val_workers,
+                                           shuffle=False, drop_last=False, pin_memory=True)
 
 
     def testLoader(self):
@@ -235,10 +235,10 @@ class Dataset:
             xyz = xyz_middle * self.scale
 
             ### elastic
-            xyz = self.elastic(xyz, 6 * self.scale // 50, 40 * self.scale / 50)
-            xyz = self.elastic(xyz, 20 * self.scale // 50, 160 * self.scale / 50)
-            #xyz = self.elastic(xyz,6,40.0)
-            #xyz = self.elastic(xyz,20,160.0)
+            #xyz = self.elastic(xyz, 6 * self.scale // 50, 40 * self.scale / 50)
+            #xyz = self.elastic(xyz, 20 * self.scale // 50, 160 * self.scale / 50)
+            xyz = self.elastic(xyz, 6 * self.scale // self.scale, 40 * self.scale / self.scale)
+            xyz = self.elastic(xyz, 20 * self.scale // self.scale, 160 * self.scale /self.scale)
 
             ### offset
             xyz -= xyz.min(0)
@@ -355,7 +355,7 @@ class Dataset:
 
         locs = torch.cat(locs, 0)                                  # long (N, 1 + 3), the batch item idx is put in locs[:, 0]
         locs_float = torch.cat(locs_float, 0).to(torch.float32)    # float (N, 3)
-        feats = torch.cat(feats, 0)                                # float (N, C)
+        feats = torch.cat(feats, 0).to(torch.float32)              # float (N, C)
         labels = torch.cat(labels, 0).long()                       # long (N)
         instance_labels = torch.cat(instance_labels, 0).long()     # long (N)
 
@@ -410,7 +410,7 @@ class Dataset:
 
         locs = torch.cat(locs, 0)                                         # long (N, 1 + 3), the batch item idx is put in locs[:, 0]
         locs_float = torch.cat(locs_float, 0).to(torch.float32)           # float (N, 3)
-        feats = torch.cat(feats, 0)                                       # float (N, C)
+        feats = torch.cat(feats, 0).to(torch.float32)                     # float (N, C)
 
         spatial_shape = np.clip((locs.max(0)[0][1:] + 1).numpy(), self.full_scale[0], None)  # long (3)
 

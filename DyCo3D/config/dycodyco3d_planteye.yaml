@@ -13,8 +13,8 @@ DATA:
   ignore_label: -100
 
   input_channel: 3
-  scale: 50   # voxel_size = 1 / scale, scale 50(2cm)
-  batch_size: 2
+  scale: 33   # voxel_size = 1 / scale, scale 50(2cm)
+  batch_size: 1
   full_scale: [128, 512]
   max_npoint: 250000
   mode: 4 # 4=mean
@@ -27,21 +27,22 @@ STRUCTURE:
   use_coords: True
 
 TRAIN:
-  max_iter: 30000
-  train_workers: 0 # data loader workers
+  max_iter: 55000
+  train_workers: 1 # data loader workers
   optim: Adam # Adam or SGD
-  lr: 0.01
+  lr: 0.001
   step_epoch: 384
   multiplier: 0.5
   momentum: 0.9
-  weight_decay: 0.0001
-  save_freq: 2000  # also eval_freq
+  weight_decay: 0.0000001
+  save_freq: 5000  # also eval_freq
   loss_weight: [1.0, 1.0, 1.0, 1.0] # semantic_loss, offset_norm_loss, offset_dir_loss, score_loss
 
   fg_thresh: 0.75
   bg_thresh: 0.25
 
-  score_scale: 50 # the minimal voxel size is 2cm
+  #score_scale: 50 # the minimal voxel size is 2cm
+  score_scale: 33 #voxel size is 3cm
   score_fullscale: 14
   score_mode: 4 # mean
 
@@ -54,19 +55,18 @@ GROUP:
   cluster_radius: 0.02
   cluster_meanActive: 50
   cluster_shift_meanActive: 300
-  cluster_npoint_thre: 50
-
-  prepare_epochs: 4000
+  cluster_npoint_thre: 10
+  prepare_epochs: 1000
 
 TEST:
   split: val
-  test_epoch: 29999
+  test_epoch: 500
   test_workers: 0
   test_seed: 567
 
-  TEST_NMS_THRESH: 0.3
-  TEST_SCORE_THRESH: 0.19
-  TEST_NPOINT_THRESH: 100
+  TEST_NMS_THRESH: 0.9
+  TEST_SCORE_THRESH: 0.6
+  TEST_NPOINT_THRESH: 10
   
   eval: True
   save_semantic: False

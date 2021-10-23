@@ -14,6 +14,10 @@ from checkpoint import strip_prefix_if_present, align_and_update_state_dicts
 from checkpoint import checkpoint
 from solver import PolyLR
 from torch.optim.lr_scheduler import StepLR
+from model.pointgroup.pointgroup import PointGroup as Network
+from model.pointgroup.pointgroup import model_fn_decorator
+import os.path as osp
+from test import test as mapeval
 
 def init():
     # copy important files to backup
@@ -39,11 +43,11 @@ def init():
     # torch.manual_seed(cfg.manual_seed)
     # torch.cuda.manual_seed_all(cfg.manual_seed)
 
-def train(train_loader, model, model_fn, optimizer, start_iter, scheduler, save_to_disc=True):
+def train(train_loader, model, model_fn, optimizer, start_iter,end_epoch,scheduler, save_to_disc=True,data_name="planteye"):
     iter_time = utils.AverageMeter()
     data_time = utils.AverageMeter()
     am_dict = {}
-
+    model_fn_test = model_fn_decorator(test=True)
     model.train()
     start_time = time.time()
     end = time.time()
@@ -65,6 +69,7 @@ def train(train_loader, model, model_fn, optimizer, start_iter, scheduler, save_
             am_dict[k].update(v[0], v[1])
 
         ##### backward
+        loss=loss.to(torch.float64)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -105,7 +110,19 @@ def train(train_loader, model, model_fn, optimizer, start_iter, scheduler, save_
             for k in am_dict.keys():
                 if k in visual_dict.keys():
                     writer.add_scalar(k+'_train', am_dict[k].avg, iteration)
-
+        
+        if (iteration % cfg.test_epoch == 0  or iteration==cfg.max_iter-1) and save_to_disc and iteration!=0:
+            logger.info(f"Running Evaluation!!!")
+            allap=mapeval(model,model_fn=model_fn_test,data_name=data_name,epoch=iteration)
+            logger.info(f"AP_Plant: {allap}")
+            model=model.train()
+        
+        if iteration>end_epoch:
+            logger.info(f"Ended Training Successfully!!!")
+            return
+            
+            
+            
 
 def eval_epoch(val_loader, model, model_fn, epoch):
     logger.info('>>>>>>>>>>>>>>>> Start Evaluation >>>>>>>>>>>>>>>>')
@@ -143,8 +160,7 @@ if __name__ == '__main__':
     exp_name = cfg.config.split('/')[-1][:-5]
     model_name = exp_name.split('_')[0]
     data_name = exp_name.split('_')[-1]
-
-
+    
     ###
     num_gpus = int(os.environ["WORLD_SIZE"]) if "WORLD_SIZE" in os.environ else 1
     distributed = num_gpus > 1
@@ -155,18 +171,8 @@ if __name__ == '__main__':
         )
         synchronize()
 
-
-
     ##### model
     logger.info('=> creating model ...')
-
-    #if model_name == 'pointgroup':
-    from model.pointgroup.pointgroup import PointGroup as Network
-    from model.pointgroup.pointgroup import model_fn_decorator
-    #else:
-    #    print("Error: no model - " + model_name)
-    #    exit(0)
-
     model = Network(cfg)
 
     use_cuda = torch.cuda.is_available()
@@ -204,8 +210,6 @@ if __name__ == '__main__':
     model_fn = model_fn_decorator()
 
 
-
-    import os.path as osp
     start_iter = -1
     if cfg.pretrain:
         logger.info("=> loading checkpoint '{}'".format(cfg.pretrain))
@@ -239,20 +243,13 @@ if __name__ == '__main__':
         else:
             raise ValueError("=> no checkpoint found at '{}'".format(checkpoint_fn))
 
-
-
     ##### dataset
     if cfg.dataset == 'scannetv2':
         if data_name == 'scannet':
             import data.scannetv2_inst
             dataset = data.scannetv2_inst.Dataset(start_iter=start_iter)
             dataset.trainLoader()
-            # dataset.valLoader()
-        #if data_name=="planteye":
-        #    import data.planteye
-            # dataset.valLoader()
-        #if data_name=="planteye":
-        #    import data.planteye
+            #dataset.valLoader()
         else:
             print("Error: no data loader - " + data_name)
             exit(0)
@@ -260,10 +257,12 @@ if __name__ == '__main__':
         import data.planteye_inst
         dataset = data.planteye_inst.Dataset(start_iter=start_iter)
         dataset.trainLoader()
+        #dataset.valLoader()
+        #val_loader=dataset.val_data_loader
 
 
     if start_iter < 0:
         start_iter = 0
 
-    train(dataset.train_data_loader, model, model_fn, optimizer, start_iter=start_iter, scheduler=scheduler, save_to_disc=get_rank() == 0)
+    train(dataset.train_data_loader, model, model_fn, optimizer, start_iter=start_iter,end_epoch=cfg.max_iter, scheduler=scheduler, save_to_disc=get_rank() == 0)
 

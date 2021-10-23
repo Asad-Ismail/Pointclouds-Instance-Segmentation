@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import zlib
 from array import array
 import scipy
-import util.eval_planteye as eval
+#import util.eval_planteye as eval
 from tqdm import tqdm
 from util.log import logger
 from utils import display_labels
@@ -118,11 +118,12 @@ def downsample_labels(pcd, labels, downpcd):
 if __name__ == "__main__":
     src_dir = "/media/asad/ADAS_CV/pointclouds/planteye_allscans/merge/banglore"
     label_dir = "/media/asad/ADAS_CV/pointclouds/banglore_annotation"
-    dst_src="/media/asad/adas_cv_2/DyCo3D/dataset/planteye/train"
-    dst_labels="/media/asad/adas_cv_2/DyCo3D/dataset/planteye/train"
+    dst_src="pointclouds/DyCo3D/dataset/planteye/train"
+    dst_labels="pointclouds/DyCo3D/dataset/planteye/train"
     # down_factor=4
-    scale = 1000
-    down_factor = 4 / scale
+    scale = 100
+    #down_factor = 4 / scale
+    down_factor=0.03
     all_pcs = []
     all_labels = []
     for fs in os.listdir(label_dir):
@@ -135,10 +136,11 @@ if __name__ == "__main__":
         ), f"Label file does not exists {gtfile}"
         # print(f"original point clouds are {np.asarray(pcd.points).shape}")
         # o3d.visualization.draw_geometries([pcd])
-        pcd_removed = remove_ground(pcd, z=0.100)
+        pcd_removed = remove_ground(pcd, z=0.90)
         # print(f"Removed Ground point clouds are {np.asarray(pcd_removed.points).shape}")
         # o3d.visualization.draw_geometries([pcd_removed])
         downpcd = downsample(pcd_removed, down_factor)
+        #downpcd=pcd_removed.uniform_down_sample(4)
         print(f"The Downsample point clouds are {np.asarray(downpcd.points).shape}")
         o3d.io.write_point_cloud(
             os.path.join(dst_src, fs[:-5] + ".ply"),
@@ -150,8 +152,12 @@ if __name__ == "__main__":
         #o3d.visualization.draw_geometries([downpcd])
         # continue
         gt_labels = read_labels(gtfile)
-        # if (np.asarray(pcd.points).shape[0]==gt_labels.shape[0]):
-        #    continue
+        #if (np.asarray(downpcd.points).shape[0]-250000>0):
+        #    print(f"Extra points are {np.asarray(downpcd.points).shape[0]-250000}")
+        #else:
+        #    print(f"Remainder points are {250000-np.asarray(downpcd.points).shape[0]}")
+        #print(f"max and min points are {np.max(np.asarray(downpcd.points))}, {np.min(np.asarray(downpcd.points))}")
+
         # display_labels(pcd,gt_labels)
         gt_down = downsample_labels(pcd, labels=gt_labels, downpcd=downpcd)
         write_labels(gt_down, dst_labels, fs)

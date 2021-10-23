@@ -3,6 +3,8 @@ import time
 import numpy as np
 import random
 import os
+import itertools
+from tqdm import tqdm
 
 from util.config import cfg
 cfg.task = 'test'
@@ -22,14 +24,16 @@ def init():
     os.makedirs(os.path.join(result_dir, 'predicted_masks'), exist_ok=True)
     os.makedirs(os.path.join(result_dir, 'gt_objs'), exist_ok=True)
     os.makedirs(os.path.join(result_dir, 'pred_objs'), exist_ok=True)
+
+
     os.system('cp test.py {}'.format(backup_dir))
     os.system('cp {} {}'.format(cfg.model_dir, backup_dir))
     os.system('cp {} {}'.format(cfg.dataset_dir, backup_dir))
     os.system('cp {} {}'.format(cfg.config, backup_dir))
 
-    #global semantic_label_idx
+    global semantic_label_idx
     #semantic_label_idx = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 28, 33, 34, 36, 39]
-    #semantic_label_idx = [0,1,2]
+    semantic_label_idx = [0,1,2]
 
     logger.info(cfg)
 
@@ -39,9 +43,7 @@ def init():
     torch.cuda.manual_seed_all(cfg.test_seed)
 
 
-def test(model, model_fn, data_name, epoch,val_loader=None):
-    init()
-    semantic_label_idx = [0,1,2]
+def test(model, model_fn, data_name, epoch,num_points,test_score,nms_thresh):
     logger.info('>>>>>>>>>>>>>>>> Start Evaluation >>>>>>>>>>>>>>>>')
 
     if cfg.dataset == 'scannetv2':
@@ -56,7 +58,6 @@ def test(model, model_fn, data_name, epoch,val_loader=None):
         import data.planteye_inst
         dataset = data.planteye_inst.Dataset(test=True)
         dataset.testLoader()
-    
 
     dataloader = dataset.test_data_loader
 
@@ -95,14 +96,14 @@ def test(model, model_fn, data_name, epoch,val_loader=None):
                 semantic_id = torch.tensor(semantic_label_idx, device=scores_pred.device)[semantic_pred[proposals_idx[:, 1][proposals_offset[:-1].long()].long()]] # (nProposal), long
 
                 ##### score threshold
-                score_mask = (scores_pred > cfg.TEST_SCORE_THRESH)
+                score_mask = (scores_pred > test_score)
                 scores_pred = scores_pred[score_mask]
                 proposals_pred = proposals_pred[score_mask]
                 semantic_id = semantic_id[score_mask]
 
                 ##### npoint threshold
                 proposals_pointnum = proposals_pred.sum(1)
-                npoint_mask = (proposals_pointnum > cfg.TEST_NPOINT_THRESH)
+                npoint_mask = (proposals_pointnum > num_points)
                 scores_pred = scores_pred[npoint_mask]
                 proposals_pred = proposals_pred[npoint_mask]
                 semantic_id = semantic_id[npoint_mask]
@@ -117,7 +118,7 @@ def test(model, model_fn, data_name, epoch,val_loader=None):
                     proposals_pn_h = proposals_pointnum.unsqueeze(-1).repeat(1, proposals_pointnum.shape[0])
                     proposals_pn_v = proposals_pointnum.unsqueeze(0).repeat(proposals_pointnum.shape[0], 1)
                     cross_ious = intersection / (proposals_pn_h + proposals_pn_v - intersection)
-                    pick_idxs = non_max_suppression(cross_ious.cpu().numpy(), scores_pred.cpu().numpy(), cfg.TEST_NMS_THRESH)  # int, (nCluster, N)
+                    pick_idxs = non_max_suppression(cross_ious.cpu().numpy(), scores_pred.cpu().numpy(), nms_thresh)  # int, (nCluster, N)
                 clusters = proposals_pred[pick_idxs]
                 cluster_scores = scores_pred[pick_idxs]
                 cluster_semantic_id = semantic_id[pick_idxs]
@@ -136,50 +137,6 @@ def test(model, model_fn, data_name, epoch,val_loader=None):
                     matches[test_scene_name]['gt'] = gt2pred
                     matches[test_scene_name]['pred'] = pred2gt
 
-            ##### save files
-            if cfg.save_semantic:
-                os.makedirs(os.path.join(result_dir, 'semantic'), exist_ok=True)
-                semantic_np = semantic_pred.cpu().numpy()
-                np.save(os.path.join(result_dir, 'semantic', test_scene_name + '.npy'), semantic_np)
-
-            if cfg.save_pt_offsets:
-                os.makedirs(os.path.join(result_dir, 'coords_offsets'), exist_ok=True)
-                pt_offsets_np = pt_offsets.cpu().numpy()
-                coords_np = batch['locs_float'].numpy()
-                coords_offsets = np.concatenate((coords_np, pt_offsets_np), 1)   # (N, 6)
-                np.save(os.path.join(result_dir, 'coords_offsets', test_scene_name + '.npy'), coords_offsets)
-
-
-            if(epoch > cfg.prepare_epochs and cfg.save_instance):
-                f = open(os.path.join(result_dir, test_scene_name + '.txt'), 'w')
-                for proposal_id in range(nclusters):
-                    clusters_i = clusters[proposal_id].cpu().numpy()  # (N)
-                    semantic_label = np.argmax(np.bincount(semantic_pred[np.where(clusters_i == 1)[0]].cpu()))
-                    score = cluster_scores[proposal_id]
-                    f.write('predicted_masks/{}_{:03d}.txt {} {:.4f}'.format(test_scene_name, proposal_id, semantic_label_idx[semantic_label], score))
-                    if proposal_id < nclusters - 1:
-                        f.write('\n')
-                    np.savetxt(os.path.join(result_dir, 'predicted_masks', test_scene_name + '_%03d.txt' % (proposal_id)), clusters_i, fmt='%d')
-                f.close()
-
-
-
-            if cfg.save_instance:
-                from util.draw_utils import write_ply_rgb, write_ply_color
-                xyz, rgb, label, instance_label = torch.load(os.path.join(cfg.data_root, cfg.dataset, cfg.split, test_scene_name + '_inst_nostuff.pth'))
-                max_ins_label = np.max(instance_label)
-                instance_label[instance_label<0] = max_ins_label + 1
-                label[label < 0] = 20
-                write_ply_color(xyz, instance_label, os.path.join(result_dir, 'gt_objs/{}_gt.obj'.format(test_scene_name)))
-                pred_ins_labels = np.zeros_like(label)
-                num = 1
-                for proposal_id in range(nclusters):
-                    clusters_i = clusters[proposal_id].cpu().numpy()
-                    pred_ins_labels[np.where(clusters_i == 1)[0]] = num
-                    num += 1
-
-                write_ply_color(xyz, pred_ins_labels, os.path.join(result_dir, 'pred_objs/{}_pred.obj'.format(test_scene_name)))
-
 
             ##### print
             logger.info("instance iter: {}/{} point_num: {} ncluster: {}".format(batch['id'][0] + 1, len(dataset.test_files), N, nclusters))
@@ -189,8 +146,8 @@ def test(model, model_fn, data_name, epoch,val_loader=None):
         if cfg.eval:
             ap_scores = eval.evaluate_matches(matches)
             avgs = eval.compute_averages(ap_scores)
-            eval.print_results(avgs)
-            return avgs["all_ap"]
+            #eval.print_results(avgs)
+        return avgs["all_ap_50%"]
 
 
 def non_max_suppression(ious, scores, threshold):
@@ -204,6 +161,40 @@ def non_max_suppression(ious, scores, threshold):
         ixs = np.delete(ixs, remove_ixs)
         ixs = np.delete(ixs, 0)
     return np.array(pick, dtype=np.int32)
+
+
+
+def find_params(model, model_fn, data_name,test_epoch):
+    hyperparams = {
+        "num_points": list(np.arange(0, 100)),
+        "test_score": list(np.arange(0, 1,0.1)),
+        "nms_thresh": list(np.arange(0, 1,0.1))
+    }
+    best_hyperparams = {}
+    # hold best running score
+    best_score = 0.0
+    # get list of param values
+    lists = hyperparams.values()
+    # get all param combinations
+    param_combinations = list(itertools.product(*lists))
+    total_param_combinations = len(param_combinations)
+    # iterate through param combinations
+    for i, params in tqdm(enumerate(param_combinations, 1)):
+        # fill param dict with params
+        param_dict = {}
+        for param_index, param_name in enumerate(hyperparams):
+            param_dict[param_name] = params[param_index]
+        # For all scans
+        allap = []
+        ap=test(model, model_fn, data_name,test_epoch,**param_dict)
+        allap.append(ap)
+        if ap >= best_score:
+            best_score = ap
+            best_hyperparams = param_dict
+        print(f"Tried parameters {param_dict}")
+        print(f"Best parameters so far {best_hyperparams}")
+        print(f"Best AP {best_score}")
+    return best_hyperparams, best_score
 
 
 if __name__ == '__main__':
@@ -254,4 +245,5 @@ if __name__ == '__main__':
 
 
     ##### evaluate
-    test(model, model_fn, data_name, cfg.test_epoch)
+    find_params(model, model_fn, data_name, cfg.test_epoch)
+    #test(model, model_fn, data_name, cfg.test_epoch)

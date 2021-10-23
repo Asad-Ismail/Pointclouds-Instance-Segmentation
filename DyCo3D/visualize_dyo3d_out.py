@@ -12,9 +12,9 @@ import json
 
 
 def visualize(
-    src_dir="/media/asad/adas_cv_2/pointclouds-dev/DyCo3D/dataset/planteye/one/data",
-    label_dir="/media/asad/adas_cv_2/pointclouds-dev/DyCo3D/dataset/planteye/one/label",
-    pred_dir="/media/asad/adas_cv_2/pointclouds-dev/DyCo3D/planteye_out/result/epoch29999_nmst0.3_scoret0.19_npointt100/val/predicted_masks",
+    src_dir="",
+    label_dir="",
+    pred_dir="",
 ):
     for mfile in os.listdir(src_dir):
         if not mfile.endswith(".ply"):
@@ -87,7 +87,7 @@ def visualize(
 
 
 if __name__ == "__main__":
-    src_dir = "/media/asad/adas_cv_2/pointclouds-dev/DyCo3D/dataset/planteye/val"
-    label_dir = "/media/asad/adas_cv_2/pointclouds-dev/DyCo3D/dataset/planteye/val"
-    pred_dir = "/media/asad/adas_cv_2/pointclouds-dev/DyCo3D/planteye_out/result/epoch29999_nmst0.3_scoret0.19_npointt100/val/predicted_masks"
+    src_dir = "dataset/planteye/val"
+    label_dir = "dataset/planteye/val"
+    pred_dir = "planteye_out/result/epoch5000_nmst0.3_scoret0.6_npointt10/val/predicted_masks"
     visualize(src_dir, label_dir, pred_dir)

@@ -1,18 +1,27 @@
 import torch
 import torch.nn as nn
 import sys
-sys.path.append("/media/asad/adas_cv_2/pointclouds-dev/DyCo3D/lib/spconv/build/lib.linux-x86_64-3.7/spconv")
 import spconv
 from spconv.modules import SparseModule
 import functools
 from collections import OrderedDict
-sys.path.append('../../')
+#sys.path.append('../../')
 from torch.nn import functional as F
 from lib.pointgroup_ops.functions import pointgroup_ops
 from util import utils
 import numpy as np
 from model.transformer import TransformerEncoder
 
+
+def dice_coefficient(x, target, weight):
+    eps = 1e-5
+    # n_inst = x.size(0)
+    # x = x.reshape(n_inst, -1)
+    # target = target.reshape(n_inst, -1)
+    intersection = (x * target).sum()
+    union = (x ** 2.0).sum() + (target ** 2.0).sum() + eps
+    loss = 1. - (2 * intersection / union)
+    return loss
 
 class ResidualBlock(SparseModule):
     def __init__(self, in_channels, out_channels, norm_fn, indice_key=None):
@@ -483,8 +492,6 @@ class PointGroup(nn.Module):
         #### semantic segmentation
         semantic_scores = self.linear(output_feats)   # (N, nClass), float
         semantic_preds = semantic_scores.max(1)[1]    # (N), long
-        #print(np.unique(semantic_preds.cpu().numpy()))
-        #print(semantic_preds.min(0))
 
         ret['semantic_scores'] = semantic_scores
 
@@ -591,8 +598,8 @@ def model_fn_decorator(test=False):
         p2v_map = batch['p2v_map'].cuda()          # (N), int, cuda
         v2p_map = batch['v2p_map'].cuda()          # (M, 1 + maxActive), int, cuda
 
-        coords_float = batch['locs_float'].float().cuda()  # (N, 3), float32, cuda
-        feats = batch['feats'].float().cuda()              # (N, C), float32, cuda
+        coords_float = batch['locs_float'].cuda()  # (N, 3), float32, cuda
+        feats = batch['feats'].cuda()              # (N, C), float32, cuda
 
         batch_offsets = batch['offsets'].cuda()    # (B + 1), int, cuda
 
@@ -633,13 +640,10 @@ def model_fn_decorator(test=False):
         p2v_map = batch['p2v_map'].cuda()                      # (N), int, cuda
         v2p_map = batch['v2p_map'].cuda()                      # (M, 1 + maxActive), int, cuda
 
-        coords_float = batch['locs_float'].float().cuda()              # (N, 3), float32, cuda
-        feats = batch['feats'].float().cuda()                          # (N, C), float32, cuda
+        coords_float = batch['locs_float'].cuda()              # (N, 3), float32, cuda
+        feats = batch['feats'].cuda()                          # (N, C), float32, cuda
         labels = batch['labels'].cuda()                        # (N), long, cuda
         instance_labels = batch['instance_labels'].cuda()      # (N), long, cuda, 0~total_nInst, -100
-
-        #print(torch.unique(batch['labels']))
-        #print(torch.unique(batch['instance_labels']))
 
         instance_info = batch['instance_info'].cuda()          # (N, 9), float32, cuda, (meanxyz, minxyz, maxxyz)
         instance_pointnum = batch['instance_pointnum'].cuda()  # (total_nInst), int, cuda
@@ -837,6 +841,9 @@ def model_fn_decorator(test=False):
             loss_out['score_loss'] = (score_loss, proposals_offset_shift.size(0)-1)
             loss += (cfg.loss_weight[3] * score_loss)
 
+            dice_loss = dice_coefficient(torch.sigmoid(mask_logits.view(-1)), inst_gt_mask.view(-1), weights.view(-1))
+            loss_out['dice_loss'] = (dice_loss, dice_loss.new_tensor(1.0))
+
 
 
         return loss, loss_out, infos
@@ -849,4 +856,3 @@ def model_fn_decorator(test=False):
     else:
         fn = model_fn
     return fn
-
