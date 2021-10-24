@@ -13,7 +13,7 @@ Change this preprocessing step according to your needs (specify custom voxel siz
 * Run **dataset/planteye/prepare_data_inst_planteye.py** to generate combine labels and ply in unifrm .pth format for training DyCo3D
 
 ### Instance Segmentation
-* Based on https://github.com/aim-uofa/DyCo3D* DyCo3D DyCo3d: Robust Instance Segmentation of 3D Point Clouds through Dynamic Convolution (CVPR 2021)
+* Based on https://github.com/aim-uofa/DyCo3D DyCo3D DyCo3d: Robust Instance Segmentation of 3D Point Clouds through Dynamic Convolution (CVPR 2021)
   and https://github.com/dvlab-research/PointGroup PointGroup: Dual-Set Point Grouping for 3D Instance Segmentation (CVPR2020)
 * Modify config in **config/dycodyco3d_planteye.yaml** to desired dataset, iterations, learning rate, model checkpoint iterations, Evaluation epohs e.t.c
 * Run train.py to run the training
