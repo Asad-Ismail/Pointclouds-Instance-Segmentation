@@ -71,7 +71,7 @@ def visualize(
                         # print(np.unique(pcd_pred_class))
                         color = [float(np.random.rand(1)) for _ in range(3)]
                         pcd_pred_colors[np.where(pcd_pred_class != 0)] = color
-                        # pcd_pred_colors[np.where(pcd_pred_class == 0)] = [0, 0, 0]
+                        #pcd_pred_colors[np.where(pcd_pred_class == 0)] = [0, 0, 0]
         pcd_pred = o3d.geometry.PointCloud()
         pcd_label = o3d.geometry.PointCloud()
         pcd_org = o3d.geometry.PointCloud()

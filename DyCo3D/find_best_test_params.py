@@ -166,7 +166,7 @@ def non_max_suppression(ious, scores, threshold):
 
 def find_params(model, model_fn, data_name,test_epoch):
     hyperparams = {
-        "num_points": list(np.arange(0, 100)),
+        "num_points": list(np.arange(5, 100,10)),
         "test_score": list(np.arange(0, 1,0.1)),
         "nms_thresh": list(np.arange(0, 1,0.1))
     }
@@ -177,9 +177,9 @@ def find_params(model, model_fn, data_name,test_epoch):
     lists = hyperparams.values()
     # get all param combinations
     param_combinations = list(itertools.product(*lists))
-    total_param_combinations = len(param_combinations)
+    total_param_combinations = list(param_combinations)
     # iterate through param combinations
-    for i, params in tqdm(enumerate(param_combinations, 1)):
+    for i, params in tqdm(enumerate(total_param_combinations, 1),total=len(total_param_combinations)):
         # fill param dict with params
         param_dict = {}
         for param_index, param_name in enumerate(hyperparams):
@@ -192,6 +192,7 @@ def find_params(model, model_fn, data_name,test_epoch):
             best_score = ap
             best_hyperparams = param_dict
         print(f"Tried parameters {param_dict}")
+        print(f"Current AP {ap}")
         print(f"Best parameters so far {best_hyperparams}")
         print(f"Best AP {best_score}")
     return best_hyperparams, best_score

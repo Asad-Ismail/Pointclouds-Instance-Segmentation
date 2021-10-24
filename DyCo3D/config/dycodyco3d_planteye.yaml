@@ -60,11 +60,11 @@ GROUP:
 
 TEST:
   split: val
-  test_epoch: 500
+  test_epoch: 5000
   test_workers: 0
   test_seed: 567
 
-  TEST_NMS_THRESH: 0.9
+  TEST_NMS_THRESH: 0.3
   TEST_SCORE_THRESH: 0.6
   TEST_NPOINT_THRESH: 10
   
