@@ -23,7 +23,7 @@ Change this preprocessing step according to your needs (specify custom voxel siz
 * Example Input Point cloud, Labels and Prediction is shown below
 
   <p align="center">
-    <img src="images/image.png" alt="pruning",img width="405" />
+    <img src="images/image.png" alt="pruning" />
   </p>
    <p align="center">
 
