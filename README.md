@@ -15,7 +15,7 @@ Change this preprocessing step according to your needs (specify custom voxel siz
 ### Instance Segmentation
 * Based on https://github.com/aim-uofa/DyCo3D DyCo3D DyCo3d: Robust Instance Segmentation of 3D Point Clouds through Dynamic Convolution (CVPR 2021)
   and https://github.com/dvlab-research/PointGroup PointGroup: Dual-Set Point Grouping for 3D Instance Segmentation (CVPR2020)
-* Modify config in **config/dycodyco3d_planteye.yaml** to desired dataset, iterations, learning rate, model checkpoint iterations, Evaluation epohs e.t.c
+* Modify config in **config/dycodyco3d_planteye.yaml** to desired dataset, iterations, learning rate, model checkpoint iterations, Evaluation epochs e.t.c
 * Run train.py to run the training
 * Use the checkpoint created by training and use in test.py  to test the dataset
 * (Optional) Run **find_best_test_params.py** to perform grid search on best minimum number of points, score threshold and nms threshold to give the best mAP
