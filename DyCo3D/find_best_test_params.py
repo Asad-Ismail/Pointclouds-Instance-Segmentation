@@ -169,9 +169,9 @@ def find_params(model, model_fn, data_name,test_epoch):
         "num_points": list(np.arange(5, 50,10)),
         "test_score": list(np.arange(0, 1,0.1)),
         "nms_thresh": list(np.arange(0, 1,0.05))
-        #"num_points": [15],
-        #"test_score": [0.0],
-        #"nms_thresh": [0.8]
+        #"num_points": [5],
+        #"test_score": [0.6],
+        #"nms_thresh": [0.25]
     }
     best_hyperparams = {}
     # hold best running score
