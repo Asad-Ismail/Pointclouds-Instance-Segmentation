@@ -147,7 +147,7 @@ def test(model, model_fn, data_name, epoch,num_points,test_score,nms_thresh):
             ap_scores = eval.evaluate_matches(matches)
             avgs = eval.compute_averages(ap_scores)
             #eval.print_results(avgs)
-        return avgs["all_ap_50%"]
+        return avgs["all_ap"]
 
 
 def non_max_suppression(ious, scores, threshold):
@@ -166,9 +166,12 @@ def non_max_suppression(ious, scores, threshold):
 
 def find_params(model, model_fn, data_name,test_epoch):
     hyperparams = {
-        "num_points": list(np.arange(5, 100,10)),
+        "num_points": list(np.arange(5, 50,10)),
         "test_score": list(np.arange(0, 1,0.1)),
-        "nms_thresh": list(np.arange(0, 1,0.1))
+        "nms_thresh": list(np.arange(0, 1,0.05))
+        #"num_points": [15],
+        #"test_score": [0.0],
+        #"nms_thresh": [0.8]
     }
     best_hyperparams = {}
     # hold best running score

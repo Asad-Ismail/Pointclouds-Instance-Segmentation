@@ -64,9 +64,9 @@ TEST:
   test_workers: 0
   test_seed: 567
 
-  TEST_NMS_THRESH: 0.3
+  TEST_NMS_THRESH: 0.25
   TEST_SCORE_THRESH: 0.6
-  TEST_NPOINT_THRESH: 10
+  TEST_NPOINT_THRESH: 5
   
   eval: True
   save_semantic: False
