@@ -25,6 +25,10 @@ See the correspoding direcory for more detail for each.
 
 ### Requirements
 
+pytohn>=3.7
+open3d
+In addition please see requirements of each algorithm to see the requiremnt of each algorithm.
+
 ## Point Cloud Annotation:
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
 
