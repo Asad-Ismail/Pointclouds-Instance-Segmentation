@@ -8,8 +8,7 @@ In this work we will build End to End Pipeline for 3D pointclouds instance segme
     3D pooint clouds take much more time to be segmented and hence the cost of their annotation can be 10x compare to 2D images. As a result there are not so many                   publically available datasets for point cloud instance segmentation.
 
 **2) Benchmark and compare state-of-the-art 3D point clouds instance segmentation networks:** \
-    Point clouds provide interesting challenge for instance segmentation becuase of their unstuctured, sparse and permuation invariant nauture. Unlike images there are not           enough  point clouds dataset publically available from different domains. Most of the point cloud datasets are from autonomous driving dmian and some from indoor point           clouds domain (containing furniture walls e.tc) for instance segmentation. It is not clear how deep neural networks trained and benchmarked on these datasets will     
-    perform on out of domain datasets. 
+    Point clouds provide interesting challenge for instance segmentation becuase of their unstuctured, sparse and permuation invariant nauture. Unlike images there are not           enough  point clouds dataset publically available from different domains. Most of the point cloud datasets are from autonomous driving dmian and some from indoor point           clouds domain (containing furniture walls e.tc) for instance segmentation. It is not clear how deep neural networks trained and benchmarked on these datasets will perform on     out of domain datasets. 
 
 ## Point Cloud Annotation:
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
