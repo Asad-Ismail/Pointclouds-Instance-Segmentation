@@ -17,7 +17,7 @@ In this work we will build End to End Pipeline for 3D pointclouds instance segme
     .
     ├── annotation              # 3D point cloud annotation using sagemaker 
     ├── algorithms              # Algorithms for 3D instance segmentation               
-    ├── Sagemaker               # Train and deploy models in Sagemaker
+    ├── dataset               # Train and deploy models in Sagemaker
     ├── utils                   # General useful scripts for viusualization and pre/post processing point clouds                     
     └── ...
 
