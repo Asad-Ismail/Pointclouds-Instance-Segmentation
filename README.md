@@ -47,7 +47,7 @@ If you find this work useful in your research, please cite:
   title={PointGroup: Dual-Set Point Grouping for 3D Instance Segmentation},
   author={Jiang, Li and Zhao, Hengshuang and Shi, Shaoshuai and Liu, Shu and Fu, Chi-Wing and Jia, Jiaya},
   journal={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2020}
+  year={2020}}
 2) @inproceedings{He2021dyco3d,
   title     =   {{DyCo3d}: Robust Instance Segmentation of 3D Point Clouds through Dynamic Convolution},
   author    =   {Tong He and Chunhua Shen and Anton van den Hengel},
@@ -62,5 +62,5 @@ If you find this work useful in your research, please cite:
   year={2021}
 }
   
-}
+
 
