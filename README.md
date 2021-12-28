@@ -10,6 +10,19 @@ In this work we will build End to End Pipeline for 3D pointclouds instance segme
 **2) Benchmark and compare state-of-the-art 3D point clouds instance segmentation networks:** \
     Point clouds provide interesting challenge for instance segmentation becuase of their unstuctured, sparse and permuation invariant nauture. Unlike images there are not           enough  point clouds dataset publically available from different domains. Most of the point cloud datasets are from autonomous driving dmian and some from indoor point           clouds domain (containing furniture walls e.tc) for instance segmentation. It is not clear how deep neural networks trained and benchmarked on these datasets will perform on     out of domain datasets. 
 
+
+
+### Stucture
+
+    .
+    ├── annotation              # 3D point cloud annotation using sagemaker 
+    ├── algorithms              # Algorithms for 3D instance segmentation               
+    ├── Sagemaker               # Train and deploy models in Sagemaker
+    ├── Utils                   # General useful scripts                         
+    └── ...
+
+See the correspoding direcory for more detail for each.
+
 ## Point Cloud Annotation:
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
 
