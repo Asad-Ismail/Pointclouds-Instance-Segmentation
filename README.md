@@ -4,11 +4,9 @@ End to End pipeline for Annotation and Instance Segmentation of point clouds
 ## Motivation
 In this work we will build End to End Pipeline for 3D pointclouds instance segmentation of plants for plant phenotyping. Plant seperation/Instance segmentation is the first step for high throughput phenotyping of plants. Traditional phenotyping requres plants to be removed/seperated mannually and then perform phenotyping. This process limits the speed of phenotyping and we can perform much faster phenotyping if we can seperate the plants using software. Fortunately, with recent advances in deep learning based instance segmentation [1,3] we can perform 3D instance segmentation with high accuracy which was not possible using traiditional menthods of instance semgmentation like DBSCAN or Graph based clustering.  Thre are two major tasks we will address in this work
 1) Build a pipeline for obtaining 3D point cloud annotated dataset for instance segmentation
-    
     3D pooint clouds take much more time to be segmented and hence the cost of their annotation can be 10x compare to 2D images. As a result there are not so many                   publically available datasets for point cloud instance segmentation.
 
-2) Benchmark and compare state-of-the-art 3D point clouds instance segmentation networks 
-    
+2) Benchmark and compare state-of-the-art 3D point clouds instance segmentation networks:
     Point clouds provide interesting challenge for instance segmentation becuase of their unstuctured, sparse and permuation invariant nauture. Unlike images there are not           enough  point clouds dataset publically available from different domains. Most of the point cloud datasets are from autonomous driving dmian and some from indoor point    
     clouds domain (containing furniture walls e.tc) for instance segmentation. It is not clear how deep neural networks trained and benchmarked on these datasets will perform on     out of domain datasets.  
 
