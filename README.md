@@ -25,7 +25,7 @@ See the correspoding direcory for more detail for each.
 
 ### Requirements
 
-pytohn>=3.7\
+python>=3.7\
 open3d\
 In addition please see requirements of each algorithm to see the requiremnt of each algorithm.
 
