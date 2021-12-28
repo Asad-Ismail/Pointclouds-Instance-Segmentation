@@ -40,8 +40,7 @@ Change this preprocessing step according to your needs (specify custom voxel siz
 * Use Dockerfile to build Dyco3D image and push to ECR for training the model in Sagemaker 
   
   
-## Citation
-If you find this work useful in your research, please cite:
+## References
 ```
 1) @article{jiang2020pointgroup,
   title={PointGroup: Dual-Set Point Grouping for 3D Instance Segmentation},
