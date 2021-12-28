@@ -23,6 +23,8 @@ In this work we will build End to End Pipeline for 3D pointclouds instance segme
 
 See the correspoding direcory for more detail for each.
 
+### Requirements
+
 ## Point Cloud Annotation:
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
 
