@@ -32,6 +32,14 @@ In addition please see requirements of each algorithm to see the requiremnt of e
 ## Point Cloud Annotation:
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
 
+## Pipeline Summary
+1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3cm to downsample the pointclouds
+On left we have original point clouds with 3.9 million points on right we have preprocessed point clouds with removed tray(based on z threshold) and downsampled point clouds
+  <p align="center">
+    <img src="images/plants_preprocess.gif" alt="pruning" />
+  </p>
+   <p align="center">
+
 # Local Training and Evaluation
 ## Dataset prepration
 * Run **write_dyco3d_input.py** (requires open3d package) with appropriate input paths of ply input point clouds and .zlib annotation file generated from Sagemaker point cloud labelling.
