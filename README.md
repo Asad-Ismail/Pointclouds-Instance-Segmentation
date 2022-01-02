@@ -33,12 +33,14 @@ In addition please see requirements of each algorithm to see the requiremnt of e
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
 
 ## Pipeline Summary
-1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3cm to downsample the pointclouds
-On left we have original point clouds with 3.9 million points on right we have preprocessed point clouds with removed tray(based on z threshold) and downsampled point clouds
+1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3cm to downsample the pointclouds\
+Below we have an example, on left we have original point clouds with 3.9 million points on right we have preprocessed point clouds with removed tray (based on height threshold) and downsampled point clouds resulting in 134000 points 
   <p align="center">
     <img src="images/plants_preprocess.gif" alt="pruning" />
   </p>
    <p align="center">
+2) Train the deep neural network and perform hyper parameter search with the preprocessed data\
+3) Use the trained network to make inference on new data
 
 # Local Training and Evaluation
 ## Dataset prepration
