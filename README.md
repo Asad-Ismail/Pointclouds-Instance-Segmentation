@@ -11,7 +11,7 @@ In this work we will build End to End Pipeline for 3D pointclouds instance segme
     Point clouds provide interesting challenge for instance segmentation becuase of their unstuctured, sparse and permuation invariant nauture. Unlike images there are not           enough  point clouds dataset publically available from different domains. Most of the point cloud datasets are from autonomous driving dmian and some from indoor point           clouds domain (containing furniture walls e.tc) for instance segmentation. It is not clear how deep neural networks trained and benchmarked on these datasets will perform on     out of domain datasets. 
 
 ## Pipeline Summary
-1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3cm to downsample the pointclouds \
+1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3 cm to downsample the pointclouds \
 Below we have an example, on left we have original point clouds with 3.9 million points on right we have preprocessed point clouds with removed tray (based on height threshold) and downsampled point clouds resulting in 134000 points 
 
   <p align="center">
