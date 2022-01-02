@@ -41,7 +41,7 @@ Below we have an example, on left we have original point clouds with 3.9 million
   </p>
    <p align="center"> 
     
-2) Train the deep neural network and perform hyper parameter search with the preprocessed data 
+2) Train the deep neural network(PointGroup, Dyco3D) and perform hyper parameter search (Bayseian based) with the preprocessed data 
     
 3) Use the trained network to make inference on new data
 
