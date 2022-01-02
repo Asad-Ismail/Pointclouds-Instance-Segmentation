@@ -38,8 +38,8 @@ Below we have an example, on left we have original point clouds with 3.9 million
   <p align="center">
     <img src="images/plants_preprocess.gif" alt="pruning" />
   </p>
-   <p align="center">\
-2) Train the deep neural network and perform hyper parameter search with the preprocessed data\
+   <p align="center"> \
+2) Train the deep neural network and perform hyper parameter search with the preprocessed data \ 
 3) Use the trained network to make inference on new data
 
 # Local Training and Evaluation
