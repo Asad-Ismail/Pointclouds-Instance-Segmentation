@@ -10,6 +10,18 @@ In this work we will build End to End Pipeline for 3D pointclouds instance segme
 **2) Benchmark and compare state-of-the-art 3D point clouds instance segmentation networks:** \
     Point clouds provide interesting challenge for instance segmentation becuase of their unstuctured, sparse and permuation invariant nauture. Unlike images there are not           enough  point clouds dataset publically available from different domains. Most of the point cloud datasets are from autonomous driving dmian and some from indoor point           clouds domain (containing furniture walls e.tc) for instance segmentation. It is not clear how deep neural networks trained and benchmarked on these datasets will perform on     out of domain datasets. 
 
+## Pipeline Summary
+1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3cm to downsample the pointclouds \
+Below we have an example, on left we have original point clouds with 3.9 million points on right we have preprocessed point clouds with removed tray (based on height threshold) and downsampled point clouds resulting in 134000 points 
+
+  <p align="center">
+    <img src="images/plants_preprocess.gif" alt="pruning" />
+  </p>
+   <p align="center"> 
+    
+2) Train the deep neural network(PointGroup, Dyco3D) and perform hyper parameter search (Bayseian based) with the preprocessed data 
+    
+3) Use the trained network to make inference on new data
 
 
 ### Stucture
@@ -29,22 +41,11 @@ python>=3.7\
 open3d\
 In addition please see requirements of each algorithm to see the requiremnt of each algorithm.
 
+    
 ## Point Cloud Annotation:
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
-
-## Pipeline Summary
-1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3cm to downsample the pointclouds \
-Below we have an example, on left we have original point clouds with 3.9 million points on right we have preprocessed point clouds with removed tray (based on height threshold) and downsampled point clouds resulting in 134000 points 
-
-  <p align="center">
-    <img src="images/plants_preprocess.gif" alt="pruning" />
-  </p>
-   <p align="center"> 
     
-2) Train the deep neural network(PointGroup, Dyco3D) and perform hyper parameter search (Bayseian based) with the preprocessed data 
     
-3) Use the trained network to make inference on new data
-
 # Local Training and Evaluation
 ## Dataset prepration
 * Run **write_dyco3d_input.py** (requires open3d package) with appropriate input paths of ply input point clouds and .zlib annotation file generated from Sagemaker point cloud labelling.
