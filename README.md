@@ -34,7 +34,7 @@ Below we have an example, on left we have original point clouds with 3.9 million
     .
     ├── annotation              # 3D point cloud annotation using sagemaker 
     ├── algorithms              # Algorithms for 3D instance segmentation               
-    ├── dataset               # Train and deploy models in Sagemaker
+    ├── dataset                 # Dataset for training  and validation
     ├── utils                   # General useful scripts for viusualization and pre/post processing point clouds                     
     └── ...
 
