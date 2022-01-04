@@ -54,7 +54,6 @@ In addition please see requirements of each algorithm to see the requiremnt of e
 See annotation directory for details on Amazon sagemaker pipeline for 3D point cloud annotation. 
 
 
-**For questions and if something is not working please open an issue or send a pull request**
   
 ### References
 ```
