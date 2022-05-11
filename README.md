@@ -23,11 +23,13 @@ Instance Segmentation of point clouds on custom dataset
   </p>
    <p align="center"> 
 
-  Quantitaively mAP on 20 validation scans is  
+  Quantitaively overall mAP on 20 validation scans is 0.986 using scannet evaluation  
 
-### Runing the inference
+## Runing the inference
+
+  After clonig he directory should look like this
    
-## Stucture
+### Stucture
 
     .
     ├── annotation              # 3D point cloud annotation using sagemaker 
