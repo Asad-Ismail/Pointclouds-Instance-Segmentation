@@ -65,7 +65,7 @@ In this work we will explore 3D pointclouds instance segmentation of plants for 
 2) Below we have an example, on left we have original point clouds with 7.4 million points on right we have preprocessed point clouds with removed tray (based on height threshold) and downsampled point clouds resulting in 3.4 and finally 1.3 million points 
 
   <p align="center">
-    <img src="images/plants_preprocess.gif" alt="pruning" />
+    <img src="images/preprocess.png" alt="pruning" />
   </p>
    <p align="center"> 
     
