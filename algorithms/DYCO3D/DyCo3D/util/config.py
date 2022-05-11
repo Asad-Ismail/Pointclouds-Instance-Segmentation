@@ -13,14 +13,14 @@ def get_parser():
     parser.add_argument('--config', type=str, default='config/dyco3d_planteye.yaml', help='path to config file')
 
     ### pretrain
-    parser.add_argument('--pretrain', type=str, default="planteye_50000.pth", help='path to pretrain model')
+    parser.add_argument('--pretrain', type=str, default="checkpoint_planteye_iter_13000.pth", help='path to pretrain model')
     #parser.add_argument('--pretrain', type=str, default="planteye_out/checkpoint_iter_8000.pth", help='path to pretrain model')
     parser.add_argument('--local_rank', type=int, default=0)
     parser.add_argument('--threshold_ins', type=float, default=0.5)
     parser.add_argument('--min_pts_num', type=int, default=10)
 
-    #parser.add_argument('--resume', type=str, default="planteye_50000.pth")
-    parser.add_argument('--resume', type=str, default=None)
+    parser.add_argument('--resume', type=str, default="checkpoint_planteye_iter_13000.pth")
+    #parser.add_argument('--resume', type=str, default=None)
     parser.add_argument('--output_path', type=str, default="planteye_out")
     parser.add_argument('--use_backbone_transformer', action='store_true', default=True)
 

@@ -89,5 +89,5 @@ def visualize(
 if __name__ == "__main__":
     src_dir = "dataset/planteye/val"
     label_dir = "dataset/planteye/val"
-    pred_dir = "planteye_out/result/epoch5000_nmst0.25_scoret0.6_npointt5/val/predicted_masks"
+    pred_dir = "planteye_out/result/epoch250_nmst0.75_scoret0.05_npointt20/val/predicted_masks"
     visualize(src_dir, label_dir, pred_dir)
