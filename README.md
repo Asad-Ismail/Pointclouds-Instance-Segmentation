@@ -14,7 +14,7 @@ Instance Segmentation of point clouds on custom dataset
    <p align="center"> 
     
    <p align="center">
-    <img src="images/val2.png" alt="pruning",img width="600" />
+    <img src="images/val2.png" alt="pruning",img width="700" />
   </p>
    <p align="center"> 
    
