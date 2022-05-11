@@ -42,9 +42,9 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
    * Install requireemnts to run PointGroup as given here https://github.com/dvlab-research/PointGroup
    * cd algorithms/PointGroup/Pointgroup/
    * The dataset is supposed to reside in algorithms/PointGroup/Pointgroup/dataset/planteye/val you can change it in config/pointgroup_default_planteye.yaml
-   Download the pretrained models and example train and test data form shorturl.at/eEFR9
-   python test.py
-   Results are saved in Output_dir/resuls which can be modified via config
+   * Download the pretrained models and example train and test data form shorturl.at/eEFR9
+   * python test.py
+   * Results are saved in Output_dir/resuls which can be modified via config
    
 
    
