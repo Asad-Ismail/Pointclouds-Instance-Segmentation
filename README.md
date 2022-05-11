@@ -59,22 +59,7 @@ Below we have an example, on left we have original point clouds with 3.9 million
     
 2) Train the deep neural network(PointGroup, Dyco3D) and perform hyper parameter search (Bayseian based) with the preprocessed data 
     
-3) Use the trained network to make inference on new data. Example of Dyco3D instance segmentation on our task
-    
-  <p align="center">
-    <img src="images/image.png" alt="pruning" />
-  </p>
-   <p align="center">
-
-
-### Stucture
-
-    .
-    ├── annotation              # 3D point cloud annotation using sagemaker 
-    ├── algorithms              # Algorithms for 3D instance segmentation               
-    ├── dataset                 # Dataset for training  and validation
-    ├── utils                   # General useful scripts for viusualization and pre/post processing point clouds                     
-    └── ...
+3) Use the trained network to make inference on new data.
 
 See the correspoding direcory for more detail for each.
 
