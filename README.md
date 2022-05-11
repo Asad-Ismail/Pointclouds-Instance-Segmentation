@@ -9,12 +9,12 @@ Instance Segmentation of point clouds on custom dataset
    Visual Results on some validation images. Left is input point cloud, middle is GT and right are predictions
    
   <p align="center">
-    <img src="images/val_1.png" alt="pruning" />
+    <img src="images/val_1.png" alt="pruning",img width="550" />
   </p>
    <p align="center"> 
     
    <p align="center">
-    <img src="images/val2.png" alt="pruning" />
+    <img src="images/val2.png" alt="pruning",img width="550" />
   </p>
    <p align="center"> 
    
