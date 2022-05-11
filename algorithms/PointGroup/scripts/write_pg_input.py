@@ -139,13 +139,14 @@ if __name__ == "__main__":
             os.path.join(label_dir, gtfile)
         ), f"Label file does not exists {gtfile}"
         # print(f"original point clouds are {np.asarray(pcd.points).shape}")
-        # o3d.visualization.draw_geometries([pcd])
+        o3d.visualization.draw_geometries([pcd])
         pcd_removed = remove_ground(pcd, z=0.90)
         print(f"Shape of removed {np.asarray(pcd_removed.points).shape}")
         print(f"Max of removed point clouds are {np.max(np.asarray(pcd_removed.points))}")
         print(f"Min of removed point clouds are {np.min(np.asarray(pcd_removed.points))}")
-        # o3d.visualization.draw_geometries([pcd_removed])
+        #o3d.visualization.draw_geometries([pcd_removed])
         downpcd = downsample(pcd_removed, down_factor)
+        #o3d.visualization.draw_geometries([downpcd])
         #downpcd=pcd_removed.uniform_down_sample(4)
         print(f"The Downsample point clouds are {np.asarray(downpcd.points).shape}")
         o3d.io.write_point_cloud(
