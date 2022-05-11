@@ -25,9 +25,9 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
 
   Quantitaively overall mAP on 20 validation scans is 0.986 using scannet evaluation  
 
-## Runing the inference
+## Running Inference
 
-  After clonig he directory should look like this
+  After clonig the directory should look like this
    
 ### Stucture
 
@@ -38,6 +38,10 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
     ├── utils                   # General useful scripts for viusualization and pre/post processing point clouds                     
     └── ...
 
+## Running PointGroup
+   cd algorithms/
+
+   
 ## Motivation
 In this work we will explore 3D pointclouds instance segmentation of plants for plant phenotyping. Plant seperation/Instance segmentation is the first step for high throughput phenotyping of plants. Traditional phenotyping requires plants to be removed/seperated mannually and then perform phenotyping. This process limits the speed of phenotyping and we can perform much faster phenotyping if we can seperate the plants using software. Fortunately, with recent advancements in deep learning based instance segmentation [1,3] we can perform 3D instance segmentation with high accuracy which was not possible using traiditional methods of instance semgmentation like DBSCAN or Graph based clustering.  Thre are two major tasks we will address in this work\
 \
@@ -59,7 +63,13 @@ Below we have an example, on left we have original point clouds with 3.9 million
     
 2) Train the deep neural network(PointGroup, Dyco3D) and perform hyper parameter search (Bayseian based) with the preprocessed data 
     
-3) Use the trained network to make inference on new data.
+3) Use the trained network to make inference on new data. Example of Dyco3D instance segmentation on our task
+    
+  <p align="center">
+    <img src="images/image.png" alt="pruning" />
+  </p>
+   <p align="center">
+
 
 See the correspoding direcory for more detail for each.
 
