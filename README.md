@@ -6,7 +6,7 @@ Instance Segmentation of point clouds on custom dataset
 
 # Results
 
-   Results on some validation images. Left is input point cloud. Middle is GT and right are predictions
+   Visual Results on some validation images. Left is input point cloud, middle is GT and right are predictions
    
   <p align="center">
     <img src="images/val_1.png" alt="pruning" />
@@ -23,7 +23,18 @@ Instance Segmentation of point clouds on custom dataset
   </p>
    <p align="center"> 
 
+  Quantitaively mAP on 20 validation scans is  
 
+### Runing the inference
+   
+## Stucture
+
+    .
+    ├── annotation              # 3D point cloud annotation using sagemaker 
+    ├── algorithms              # Algorithms for 3D instance segmentation               
+    ├── dataset                 # Dataset for training  and validation
+    ├── utils                   # General useful scripts for viusualization and pre/post processing point clouds                     
+    └── ...
 
 ## Motivation
 In this work we will explore 3D pointclouds instance segmentation of plants for plant phenotyping. Plant seperation/Instance segmentation is the first step for high throughput phenotyping of plants. Traditional phenotyping requires plants to be removed/seperated mannually and then perform phenotyping. This process limits the speed of phenotyping and we can perform much faster phenotyping if we can seperate the plants using software. Fortunately, with recent advancements in deep learning based instance segmentation [1,3] we can perform 3D instance segmentation with high accuracy which was not possible using traiditional methods of instance semgmentation like DBSCAN or Graph based clustering.  Thre are two major tasks we will address in this work\
