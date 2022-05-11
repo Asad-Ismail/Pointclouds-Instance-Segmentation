@@ -61,8 +61,8 @@ In this work we will explore 3D pointclouds instance segmentation of plants for 
 
 ## Pipeline Summary
 ## Preprocess Input Point Clouds
-1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3 cm to downsample the pointclouds \
-Below we have an example, on left we have original point clouds with 3.9 million points on right we have preprocessed point clouds with removed tray (based on height threshold) and downsampled point clouds resulting in 134000 points 
+1) First the point clouds are preprocessed to downsamaple from millions of point clouds to few hundered thousands. We use voxel size of 3 cm to downsample the pointclouds 
+2) Below we have an example, on left we have original point clouds with 7.4 million points on right we have preprocessed point clouds with removed tray (based on height threshold) and downsampled point clouds resulting in 3.4 and finally 1.3 million points 
 
   <p align="center">
     <img src="images/plants_preprocess.gif" alt="pruning" />
