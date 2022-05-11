@@ -44,9 +44,11 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
    * The dataset is supposed to reside in algorithms/PointGroup/Pointgroup/dataset/planteye/val you can change it in config/pointgroup_default_planteye.yaml
    * Download the pretrained models and example train and test data form https://shorturl.at/bfiBJ
    * python test.py
-   * Results are saved in Output_dir/resuls which can be modified via config
+   * Results are saved in Output_dir/results which can be modified via config
+   * python visualize_pointgroup_out.py (requires open3D) by giving appropriate path of results from previous step
    
-
+### Training
+   ### TO DO
    
 ## Motivation
 In this work we will explore 3D pointclouds instance segmentation of plants for plant phenotyping. Plant seperation/Instance segmentation is the first step for high throughput phenotyping of plants. Traditional phenotyping requires plants to be removed/seperated mannually and then perform phenotyping. This process limits the speed of phenotyping and we can perform much faster phenotyping if we can seperate the plants using software. Fortunately, with recent advancements in deep learning based instance segmentation [1,3] we can perform 3D instance segmentation with high accuracy which was not possible using traiditional methods of instance semgmentation like DBSCAN or Graph based clustering.  Thre are two major tasks we will address in this work\
