@@ -24,14 +24,13 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
    <p align="center"> 
 
    
-<center> 
+<div align="center">Some test</div>
 
 Algorithm | valCount | mAP @0.5:0.95
 | :--- | ---: | :---:
 DyCO3D  | 20 |  </br>0.937</br>
 PointGroup  | 20 | <br /> 0.986
 
-</center> 
 
 
 ## Inference
