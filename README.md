@@ -47,7 +47,7 @@ PointGroup  | 20 | <br /> 0.986
     ├── utils                   # General useful scripts for viusualization and pre/post processing point clouds                     
     └── ...
 
-## Running PointGroup
+### Running PointGroup
    * Install requireemnts to run PointGroup as given here https://github.com/dvlab-research/PointGroup
    * cd algorithms/PointGroup/Pointgroup/
    * The dataset is supposed to reside in algorithms/PointGroup/Pointgroup/dataset/planteye/val you can change it in config/pointgroup_default_planteye.yaml
@@ -56,7 +56,7 @@ PointGroup  | 20 | <br /> 0.986
    * Results are saved in Output_dir/results which can be modified via config
    * python visualize_pointgroup_out.py (requires open3D) by giving appropriate path of results from previous step
 
-## Running DyCO3D
+### Running DyCO3D
    * Install requireemnts to run PointGroup as given here https://github.com/dvlab-research/PointGroup
    * cd algorithms/DYCO3D/DyCo3D/
    * The dataset is supposed to reside in algorithms/DYCO3D/DyCo3D/dataset/planteye/val you can change it in config/dyco3d_besthp_planteye.yaml
