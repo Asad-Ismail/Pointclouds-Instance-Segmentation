@@ -49,7 +49,7 @@ PointGroup  | 20 | <br /> 0.986
 
 ### Running PointGroup
    * Install requireemnts to run PointGroup as given here https://github.com/dvlab-research/PointGroup
-   * cd algorithms/PointGroup/Pointgroup/
+   * ``` cd algorithms/PointGroup/Pointgroup/ ```
    * The dataset is supposed to reside in algorithms/PointGroup/Pointgroup/dataset/planteye/val you can change it in config/pointgroup_default_planteye.yaml
    * Download the pretrained models and example train and test data form https://shorturl.at/bfiBJ
    * python test.py --resume planteye_trained_pointgroup.pth
