@@ -23,7 +23,13 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
   </p>
    <p align="center"> 
 
-  Quantitaively overall mAP on 20 validation scans is 0.986 using scannet evaluation  
+   
+Algorithm | valCount | mAP 
+| :--- | ---: | :---:
+DyCO3D  | 20 | 0.937
+PointGroup  | 20 | 0.986
+ 
+Quantitaively overall mAP on 20 validation scans is 0.986 using scannet evaluation  
 
 ## Running Inference
 
