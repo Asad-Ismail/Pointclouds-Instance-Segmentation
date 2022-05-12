@@ -4,7 +4,7 @@
 * Run **write_dyco3d_input.py** (requires open3d package) with appropriate input paths of ply input point clouds and .zlib annotation file generated from Sagemaker point cloud labelling.
 Output will be preprocessed ply files with labels written in text file in form (Nx1) where N are the number of point clouds in downsampled ply file.
 Change this preprocessing step according to your needs (specify custom voxel size, scaling, height based filtering e.tc)
-* Run **dataset/planteye/prepare_data_inst_planteye.py** to generate combine labels and ply in unifrm .pth format for training DyCo3D
+* Run **dataset/planteye/prepare_data_inst_planteye.py** to generate combine labels and ply in uniform .pth format for training DyCo3D
 
 ### Local Training
 * Modify config in **config/dycodyco3d_planteye.yaml** to desired dataset, iterations, learning rate, model checkpoint iterations, Evaluation epochs e.t.c
