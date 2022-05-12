@@ -6,7 +6,7 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
 
 # Results
 
-   Visual Results on some validation images. Left shows input point cloud, middle is GT and right are predictions
+   Visual Results of PointGroup on some validation images. Left shows input point cloud, middle is GT and right are predictions
    
   <p align="center">
     <img src="images/val_1.png" alt="pruning",img width="550" />
