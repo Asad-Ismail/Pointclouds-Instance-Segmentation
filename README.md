@@ -51,7 +51,7 @@ PointGroup  | 20 | <br /> 0.986
    * Install requireemnts to run PointGroup as given here https://github.com/dvlab-research/PointGroup
    * ``` cd algorithms/PointGroup/Pointgroup/ ```
    * The dataset is supposed to reside in algorithms/PointGroup/Pointgroup/dataset/planteye/val you can change it in config/pointgroup_default_planteye.yaml
-   * Download the pretrained models and example train and test data form https://shorturl.at/bfiBJ
+   * Download the pretrained models and example train and test data form https://shorturl.at/lLP29
    * ``` python test.py --resume planteye_trained_pointgroup.pth ```
    * Results are saved in Output_dir/results which can be modified via config
    * ``` python visualize_pointgroup_out.py ``` (requires open3D) by giving appropriate path of results from previous step
@@ -60,7 +60,7 @@ PointGroup  | 20 | <br /> 0.986
    * Install requireemnts to run PointGroup as given here https://github.com/dvlab-research/PointGroup
    * ``` cd algorithms/DYCO3D/DyCo3D/ ```
    * The dataset is supposed to reside in algorithms/DYCO3D/DyCo3D/dataset/planteye/val you can change it in config/dyco3d_besthp_planteye.yaml
-   * Download the pretrained models and example train and test data form https://shorturl.at/bfiBJ
+   * Download the pretrained models and example train and test data form https://shorturl.at/lLP29
    * ``` python test.py --resume planteye_trained_dyco3d.pth ```
    * Results are saved in Output_dir/results which can be modified via config
    * ``` python visualize_dyco3d_out.py ``` (requires open3D) by giving appropriate path of results from previous step
