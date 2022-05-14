@@ -28,6 +28,7 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
 
 Algorithm | TrainCount | valCount | mAP @0.5:0.95
 | :--- | ---: | ---: | :---:
+DBSCAN | --   | 20 | 0.351
 DyCO3D | 212 | 20 |  0.937
 PointGroup | 212  | 20 |  0.986
 
