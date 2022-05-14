@@ -22,7 +22,8 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
     <img src="images/val.gif" alt="pruning" />
   </p>
    <p align="center"> 
-   Quanlitative and Quantitative comparison of different algorithms.
+   
+ Quanlitative and Quantitative comparison of different algorithms.
    
    <p align="center">
     <img src="images/3d_comparison.png" alt="pruning",img width="700" />
