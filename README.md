@@ -24,6 +24,11 @@ Instance Segmentation of point clouds on custom dataset for plant seperation
    <p align="center"> 
 
    
+  <p align="center">
+    <img src="images/3d_comparison.png" alt="pruning",img width="700" />
+  </p>
+   <p align="center"> 
+   
 <div align="center">
 
 Algorithm | TrainCount | valCount | mAP @0.5:0.95
