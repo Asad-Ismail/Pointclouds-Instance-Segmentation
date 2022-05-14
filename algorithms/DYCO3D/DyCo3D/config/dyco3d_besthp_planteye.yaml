@@ -52,10 +52,10 @@ TRAIN:
 
 GROUP:
   ### point grouping
-  cluster_radius: 0.02
-  cluster_meanActive: 50
-  cluster_shift_meanActive: 300
-  cluster_npoint_thre: 10
+  cluster_radius: 0.03609635723222
+  cluster_meanActive: 40
+  cluster_shift_meanActive: 282
+  cluster_npoint_thre: 20
   prepare_epochs: 10
 
 TEST:
@@ -64,11 +64,11 @@ TEST:
   test_workers: 0
   test_seed: 567
 
-  TEST_NMS_THRESH: 0.25
-  TEST_SCORE_THRESH: 0.6
-  TEST_NPOINT_THRESH: 5
+  TEST_NMS_THRESH: 0.50
+  TEST_SCORE_THRESH: 0.7
+  TEST_NPOINT_THRESH: 20
   
   eval: True
   save_semantic: False
   save_pt_offsets: False
-  save_instance: False
+  save_instance: True

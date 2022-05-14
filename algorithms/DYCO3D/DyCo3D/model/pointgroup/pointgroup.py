@@ -439,8 +439,7 @@ class PointGroup(nn.Module):
         num = 0
         scores = []
         for n in range(n_inst):
-            #proposal_id_n = ((mask_logits[n] > threshold) + (seg_pred == inst_pred_seg_label[n].item()) > 1).nonzero().squeeze(dim=1)
-            proposal_id_n = ((mask_logits[n] > threshold) & (seg_pred == inst_pred_seg_label[n].item())).nonzero().squeeze(dim=1)
+            proposal_id_n = ((mask_logits[n] > threshold) + (seg_pred == inst_pred_seg_label[n].item()) > 1).nonzero().squeeze(dim=1)
             score = mask_logits[n][proposal_id_n].mean()
             seg_label = inst_pred_seg_label[n]
             if proposal_id_n.size(0) < min_pts_num:
@@ -614,7 +613,7 @@ def model_fn_decorator(test=False,device="cuda"):
         #model_state_dict = model.state_dict()
         #val_model.load_state_dict(model_state_dict)
        
-        #model=model.to(device)
+        model=model.to(device)
 
         ret = model(input_, p2v_map, coords_float, coords[:, 0].int(), batch_offsets, epoch, ins_sample_num=-1, training=False)
         semantic_scores = ret['semantic_scores']  # (N, nClass) float32, cuda

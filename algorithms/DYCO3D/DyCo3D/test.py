@@ -14,6 +14,7 @@ import os.path as osp
 from checkpoint import strip_prefix_if_present, align_and_update_state_dicts
 from checkpoint import checkpoint
 from model.pointgroup.pointgroup import PointGroup as Network
+
 def init():
     global result_dir
     result_dir = os.path.join(cfg.exp_path, 'result', 'epoch{}_nmst{}_scoret{}_npointt{}'.format(cfg.test_epoch, cfg.TEST_NMS_THRESH, cfg.TEST_SCORE_THRESH, cfg.TEST_NPOINT_THRESH), cfg.split)
@@ -26,11 +27,6 @@ def init():
     os.system('cp {} {}'.format(cfg.model_dir, backup_dir))
     os.system('cp {} {}'.format(cfg.dataset_dir, backup_dir))
     os.system('cp {} {}'.format(cfg.config, backup_dir))
-
-    #global semantic_label_idx
-    #semantic_label_idx = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 24, 28, 33, 34, 36, 39]
-    #semantic_label_idx = [0,1,2]
-
     logger.info(cfg)
 
     random.seed(cfg.test_seed)
@@ -57,7 +53,6 @@ def test(model, model_fn, data_name, epoch,val_loader=None):
         dataset = data.planteye_inst.Dataset(test=True)
         dataset.testLoader()
     
-
     dataloader = dataset.test_data_loader
 
     with torch.no_grad():
