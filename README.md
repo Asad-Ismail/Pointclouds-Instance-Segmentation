@@ -54,6 +54,10 @@ PointGroup | 212  | 20 |  0.986
     ├── utils                   # General useful scripts for viusualization and pre/post processing point clouds                     
     └── ...
 
+### Running DBSCAN   
+   *  ``` cd algorithms/DBSCAN/ ```
+   * ``` python dbscan_segmentation.py ``` to get a baseline for instance segmentation using DB clustering
+   
 ### Running PointGroup
    * Install requireemnts to run PointGroup as given here https://github.com/dvlab-research/PointGroup
    * ``` cd algorithms/PointGroup/Pointgroup/ ```
